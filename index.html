@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vardiya Hesaplama Sistemi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-clock"></i> Vardiya Hesaplama</h1>
+            <p>TAB Gıda Vardiya Hesaplama</p>
+            <div class="auth-panel" id="auth-panel">
+                <button id="login-btn" class="btn-primary">Giriş Yap</button>
+                <button id="register-btn" class="btn-secondary">Kayıt Ol</button>
+            </div>
+            <div class="user-panel" id="user-panel" style="display:none;">
+                <span id="current-user-name"></span>
+                <button id="logout-btn" class="btn-danger">Çıkış Yap</button>
+            </div>
+        </header>
+
+        <!-- Giriş Modalı -->
+        <div id="login-modal" class="modal" style="display:none;">
+            <div class="modal-content auth-modal-content">
+                <span class="close" id="close-login">&times;</span>
+                <h2 class="auth-modal-title">Giriş Yap</h2>
+                <form id="login-form" class="auth-form">
+                    <input type="text" id="login-username" class="auth-input" placeholder="Kullanıcı Adı" required>
+                    <input type="password" id="login-password" class="auth-input" placeholder="Şifre" required>
+                    <button type="submit" class="btn-primary auth-btn">Giriş Yap</button>
+                </form>
+                <div id="login-error" class="error-message auth-error"></div>
+            </div>
+        </div>
+
+        <!-- Kayıt Modalı -->
+        <div id="register-modal" class="modal" style="display:none;">
+            <div class="modal-content auth-modal-content">
+                <span class="close" id="close-register">&times;</span>
+                <h2 class="auth-modal-title">Kayıt Ol</h2>
+                <form id="register-form" class="auth-form">
+                    <input type="text" id="register-username" class="auth-input" placeholder="Kullanıcı Adı" required>
+                    <input type="password" id="register-password" class="auth-input" placeholder="Şifre" required>
+                    <input type="text" id="admin-username" class="auth-input" placeholder="Admin Adı" required>
+                    <input type="password" id="admin-password" class="auth-input" placeholder="Admin Şifresi" required>
+                    <button type="submit" class="btn-primary auth-btn">Kayıt Ol</button>
+                </form>
+                <div id="register-error" class="error-message auth-error"></div>
+            </div>
+        </div>
+
+        <!-- Ana içerik: Giriş yapınca gözükecek tüm vardiya sistemi ve istatistikler -->
+        <div id="main-content">
+            <!-- Quick Stats -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Bu Ay</h3>
+                    <p id="aylik-vardiya">0 Vardiya</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Toplam Saat</h3>
+                    <p id="toplam-saat">0.00 saat</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Toplam Kazanç</h3>
+                    <p id="toplam-kazanc">0.00 TL</p>
+                </div>
+            </div>
+
+            <!-- Add Shift Form -->
+            <div class="form-container">
+                <h2><i class="fas fa-plus-circle"></i> Yeni Vardiya Ekle</h2>
+                <form id="shift-form">
+                    <div class="form-row unified-time-row">
+                        <div class="unified-time-card modern-bar-layout">
+                            <div class="unified-date-group">
+                                <span class="unified-time-label">TARİH</span>
+                                <div class="unified-date-input-wrapper">
+                                    <input type="text" id="tarih" class="unified-date-input" readonly placeholder="Tarih seçin..." required>
+                                    <i class="fas fa-calendar-alt unified-date-icon"></i>
+                                </div>
+                            </div>
+                            <div class="unified-bar-separator"></div>
+                            <div class="unified-time-input-group">
+                                <span class="unified-time-label">GİRİŞ</span>
+                                <div class="unified-time-input-flex">
+                                    <span class="unified-arrow-icon"><i class="fas fa-arrow-right"></i></span>
+                                    <div class="unified-time-input-wrapper">
+                                        <input type="text" id="giris" class="unified-time-input" placeholder="09:00" pattern="[0-2][0-9]:[0-5][0-9]" required>
+                                        <i class="fas fa-clock unified-time-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="unified-time-input-group">
+                                <span class="unified-time-label">ÇIKIŞ</span>
+                                <div class="unified-time-input-flex">
+                                    <span class="unified-arrow-icon"><i class="fas fa-arrow-right"></i></span>
+                                    <div class="unified-time-input-wrapper">
+                                        <input type="text" id="cikis" class="unified-time-input" placeholder="17:00" pattern="[0-2][0-9]:[0-5][0-9]" required>
+                                        <i class="fas fa-clock unified-time-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Vardiya Ekle
+                    </button>
+                </form>
+            </div>
+
+            <!-- Monthly Reports -->
+            <div class="monthly-reports">
+                <h2><i class="fas fa-chart-bar"></i> Aylık Raporlar</h2>
+                <div id="monthly-grid" class="monthly-grid">
+                    <!-- Aylık kartlar buraya gelecek -->
+                </div>
+            </div>
+
+            <!-- Shifts List -->
+            <div class="shifts-container">
+                <div class="shifts-header">
+                    <h2><i class="fas fa-list"></i> Vardiya Listesi</h2>
+                    <div class="filter-controls">
+                        <select id="ay-filter">
+                            <option value="">Tüm Aylar</option>
+                        </select>
+                        <button id="clear-all" class="btn-danger">
+                            <i class="fas fa-trash"></i> Tümünü Temizle
+                        </button>
+                    </div>
+                </div>
+                <div id="shifts-list" class="shifts-list">
+                    <div class="no-shifts">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>Henüz vardiya eklenmemiş</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculation Summary -->
+            <div class="summary-container">
+                <h2><i class="fas fa-calculator"></i> Hesaplama Özeti</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">Toplam Vardiya:</span>
+                        <span id="ozet-vardiya" class="value">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Toplam Çalışma:</span>
+                        <span id="ozet-toplam-saat" class="value">0.00 saat</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Normal Saat:</span>
+                        <span id="ozet-normal-saat" class="value">0.00 saat</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Mesai Saati:</span>
+                        <span id="ozet-mesai-saat" class="value">0.00 saat</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Normal Ücret:</span>
+                        <span id="ozet-normal-ucret" class="value">0.00 TL</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Mesai Ücreti:</span>
+                        <span id="ozet-mesai-ucret" class="value">0.00 TL</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span class="label">TOPLAM KAZANÇ:</span>
+                        <span id="ozet-toplam-kazanc" class="value">0.00 TL</span>
+                        <button id="hata-payi-btn" class="hata-payi-btn" type="button" title="Hata payı hakkında">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                        <div id="hata-payi-panel" class="hata-payi-panel" style="display:none;">
+                            <label class="hata-payi-radio-label">
+                                <input type="checkbox" id="hata-payi-radio" class="hata-payi-radio" />
+                                <span>Hata payını düş: (binde 36)</span>
+                            </label>
+                            <span class="hata-payi-amount" id="hata-payi-amount"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications Container -->
+        <div id="toast-container" class="toast-container"></div>
+
+        <!-- Modern Calendar Modal -->
+        <div id="calendar-modal-overlay" class="calendar-modal-overlay">
+            <div class="calendar-dropdown" id="calendar-dropdown">
+                <div class="calendar-header">
+                    <button type="button" class="calendar-nav" id="prev-month">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="calendar-month-year" id="month-year"></span>
+                    <button type="button" class="calendar-nav" id="next-month">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday">Pzt</div>
+                    <div class="calendar-weekday">Sal</div>
+                    <div class="calendar-weekday">Çar</div>
+                    <div class="calendar-weekday">Per</div>
+                    <div class="calendar-weekday">Cum</div>
+                    <div class="calendar-weekday">Cmt</div>
+                    <div class="calendar-weekday">Paz</div>
+                </div>
+                <div class="calendar-days" id="calendar-days"></div>
+                <div class="calendar-actions">
+                    <button type="button" class="calendar-btn calendar-btn-today" id="calendar-today">
+                        <i class="fas fa-calendar-alt"></i>
+                        Bugün
+                    </button>
+                    <button type="button" class="calendar-btn calendar-btn-clear" id="calendar-clear">
+                        <i class="fas fa-times"></i>
+                        Temizle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Silme Onay Modalı -->
+        <div id="delete-modal" class="modal" style="display:none;">
+            <div class="modal-content delete-modal-content">
+                <h2 class="delete-modal-title">Vardiyayı Sil</h2>
+                <p class="delete-modal-text">Bu vardiyayı silmek istediğinizden emin misiniz?</p>
+                <div class="delete-modal-actions">
+                    <button id="delete-confirm-btn" class="btn-danger delete-btn">Evet, Sil</button>
+                    <button id="delete-cancel-btn" class="btn-secondary delete-btn">Vazgeç</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+        
+        <!-- Our Scripts -->
+        <script src="shift-calculator.js"></script>
+        <script src="script.js"></script>
+    </div>
+</body>
+</html> 

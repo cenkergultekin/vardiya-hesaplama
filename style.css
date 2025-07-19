@@ -97,6 +97,59 @@ body {
     font-size: var(--font-size-base);
     font-weight: 400;
     letter-spacing: -0.01em;
+    /* Mobile scroll improvements */
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+}
+
+/* Mobile scrollbar improvements */
+@media (max-width: 768px) {
+    .shifts-list {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    .shifts-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .shifts-list::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .shifts-list::-webkit-scrollbar-thumb {
+        background: var(--primary-200);
+        border-radius: 2px;
+    }
+    
+    .shifts-list::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-300);
+    }
+    
+    /* Prevent horizontal scroll */
+    .container {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
+    /* Better text rendering on mobile */
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Improve tap highlights */
+    button, input, select {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Better focus states for mobile */
+    button:focus,
+    input:focus,
+    select:focus {
+        outline: 2px solid var(--primary-400);
+        outline-offset: 2px;
+    }
 }
 
 .container {
@@ -1785,15 +1838,23 @@ body {
 @media (max-width: 768px) {
     .container {
         padding: var(--space-3);
+        max-width: 100%;
     }
     
     .header {
         padding: var(--space-6) var(--space-4);
         margin-bottom: var(--space-6);
+        text-align: center;
     }
     
     .header h1 {
         font-size: var(--font-size-2xl);
+        margin-bottom: var(--space-2);
+    }
+    
+    .header p {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--space-4);
     }
     
     .stats-container {
@@ -1802,14 +1863,63 @@ body {
         margin-bottom: var(--space-6);
     }
     
+    .stat-card {
+        padding: var(--space-4);
+    }
+    
+    .stat-card i {
+        font-size: var(--font-size-2xl);
+    }
+    
     .form-container, .shifts-container, .monthly-reports, .summary-container {
-        padding: var(--space-6);
+        padding: var(--space-5);
         margin-bottom: var(--space-5);
+        border-radius: var(--radius-xl);
+    }
+    
+    .form-container h2, .shifts-container h2, .monthly-reports h2, .summary-container h2 {
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--space-4);
     }
     
     .form-row {
         grid-template-columns: 1fr;
         gap: var(--space-4);
+    }
+    
+    /* Unified time card mobile */
+    .unified-time-card {
+        flex-direction: column;
+        gap: var(--space-3);
+        padding: var(--space-4);
+    }
+    
+    .unified-time-input-group {
+        width: 100%;
+    }
+    
+    .unified-time-input-wrapper {
+        width: 100%;
+    }
+    
+    .unified-time-input {
+        width: 100%;
+        font-size: var(--font-size-base);
+        padding: var(--space-3);
+    }
+    
+    .unified-date-input {
+        width: 100%;
+        font-size: var(--font-size-base);
+        padding: var(--space-3);
+    }
+    
+    .unified-bar-separator {
+        display: none;
+    }
+    
+    .unified-arrow-icon {
+        display: none;
     }
     
     .time-inputs-container {
@@ -1857,6 +1967,19 @@ body {
     .filter-controls {
         justify-content: space-between;
         gap: var(--space-2);
+        flex-wrap: wrap;
+    }
+    
+    .filter-controls select {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    .filter-controls button {
+        flex: 1;
+        min-width: 120px;
+        font-size: var(--font-size-sm);
+        padding: var(--space-2) var(--space-3);
     }
     
     .shift-details {
@@ -1864,14 +1987,48 @@ body {
         gap: var(--space-3);
     }
     
+    .shift-detail {
+        padding: var(--space-3);
+    }
+    
+    .shift-detail .label {
+        font-size: var(--font-size-xs);
+    }
+    
+    .shift-detail .value {
+        font-size: var(--font-size-sm);
+    }
+    
     .summary-grid {
         grid-template-columns: 1fr;
         gap: var(--space-4);
     }
     
+    .summary-item {
+        padding: var(--space-4);
+    }
+    
     .month-details {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-3);
+    }
+    
+    .month-item {
+        padding: var(--space-4);
+    }
+    
+    .month-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+    
+    .month-name {
+        font-size: var(--font-size-base);
+    }
+    
+    .month-earning {
+        font-size: var(--font-size-lg);
     }
     
     .toast-container {
@@ -1884,6 +2041,8 @@ body {
         min-width: auto;
         max-width: none;
         transform: translateY(-100px);
+        font-size: var(--font-size-sm);
+        padding: var(--space-3) var(--space-4);
     }
     
     .toast.show {
@@ -1893,28 +2052,153 @@ body {
     .toast.hide {
         transform: translateY(-100px);
     }
+    
+    /* User panel mobile */
+    .user-panel {
+        flex-direction: column;
+        gap: var(--space-2);
+        padding: var(--space-3);
+        max-width: 250px;
+    }
+    
+    #current-user-name {
+        font-size: var(--font-size-base);
+    }
+    
+    #logout-btn {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Auth panel mobile */
+    .auth-panel {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    
+    .auth-panel button {
+        width: 100%;
+        max-width: 200px;
+    }
 }
 
 @media (max-width: 480px) {
     .container {
         padding: var(--space-2);
+        max-width: 100%;
     }
     
     .header {
         padding: var(--space-4);
+        margin-bottom: var(--space-4);
     }
     
     .header h1 {
         font-size: var(--font-size-xl);
+        margin-bottom: var(--space-2);
+    }
+    
+    .header p {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--space-3);
+    }
+    
+    .stats-container {
+        gap: var(--space-3);
+        margin-bottom: var(--space-4);
+    }
+    
+    .stat-card {
+        padding: var(--space-3);
+    }
+    
+    .stat-card i {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--space-2);
+    }
+    
+    .stat-card h3 {
+        font-size: var(--font-size-xs);
+    }
+    
+    .stat-card p {
+        font-size: var(--font-size-lg);
     }
     
     .form-container, .shifts-container, .monthly-reports, .summary-container {
-        padding: var(--space-5);
-        border-radius: var(--radius-xl);
+        padding: var(--space-4);
+        margin-bottom: var(--space-4);
+        border-radius: var(--radius-lg);
+    }
+    
+    .form-container h2, .shifts-container h2, .monthly-reports h2, .summary-container h2 {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--space-3);
+    }
+    
+    .form-container h2 i, .shifts-container h2 i, .monthly-reports h2 i, .summary-container h2 i {
+        font-size: var(--font-size-base);
+        margin-right: var(--space-2);
+    }
+    
+    /* Unified time card extra mobile */
+    .unified-time-card {
+        padding: var(--space-3);
+        gap: var(--space-2);
+    }
+    
+    .unified-time-label {
+        font-size: var(--font-size-xs);
+        margin-bottom: var(--space-1);
+    }
+    
+    .unified-time-input, .unified-date-input {
+        font-size: var(--font-size-sm);
+        padding: var(--space-2);
+    }
+    
+    .unified-time-input-wrapper {
+        margin-bottom: var(--space-2);
+    }
+    
+    .btn-primary {
+        font-size: var(--font-size-sm);
+        padding: var(--space-3) var(--space-4);
     }
     
     .shift-details {
         grid-template-columns: 1fr;
+        gap: var(--space-2);
+    }
+    
+    .shift-detail {
+        padding: var(--space-2);
+    }
+    
+    .shift-detail .label {
+        font-size: var(--font-size-xs);
+        margin-bottom: var(--space-1);
+    }
+    
+    .shift-detail .value {
+        font-size: var(--font-size-sm);
+    }
+    
+    .shift-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-2);
+    }
+    
+    .shift-date {
+        font-size: var(--font-size-sm);
+        text-align: center;
+    }
+    
+    .shift-delete {
+        width: 100%;
+        font-size: var(--font-size-xs);
+        padding: var(--space-2);
     }
     
     .month-details {
@@ -1922,52 +2206,380 @@ body {
         gap: var(--space-2);
     }
     
+    .month-detail {
+        padding: var(--space-2);
+    }
+    
+    .month-detail .label {
+        font-size: var(--font-size-xs);
+    }
+    
+    .month-detail .value {
+        font-size: var(--font-size-sm);
+    }
+    
     .month-header {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--space-2);
+        padding: var(--space-3);
     }
     
-         .calendar-dropdown {
-         width: 95vw;
-         max-width: 360px;
-         max-height: 80vh;
-     }
-     
-     .calendar-modal-overlay {
-         padding: var(--space-3);
-     }
-     
-     .calendar-day {
-         min-height: 40px;
-         font-size: var(--font-size-xs);
-     }
-     
-     .calendar-weekday {
-         font-size: 10px;
-         padding: var(--space-1);
-     }
-     
-     .calendar-header {
-         padding: var(--space-4);
-     }
-     
-     .calendar-month-year {
-         font-size: var(--font-size-base);
-         padding: var(--space-1) var(--space-3);
-     }
-     
-     .calendar-nav {
-         width: 40px;
-         height: 40px;
-         font-size: var(--font-size-base);
-     }
+    .month-name {
+        font-size: var(--font-size-sm);
+    }
+    
+    .month-earning {
+        font-size: var(--font-size-base);
+    }
+    
+    .summary-grid {
+        gap: var(--space-3);
+    }
+    
+    .summary-item {
+        padding: var(--space-3);
+    }
+    
+    .summary-item .label {
+        font-size: var(--font-size-xs);
+    }
+    
+    .summary-item .value {
+        font-size: var(--font-size-sm);
+    }
+    
+    .summary-item.total {
+        font-size: var(--font-size-base);
+    }
+    
+    .filter-controls {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    
+    .filter-controls select,
+    .filter-controls button {
+        width: 100%;
+        font-size: var(--font-size-sm);
+        padding: var(--space-2);
+    }
+    
+    .shifts-header {
+        gap: var(--space-2);
+    }
+    
+    .shifts-header h2 {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--space-2);
+    }
+    
+    /* User panel extra mobile */
+    .user-panel {
+        padding: var(--space-2);
+        max-width: 200px;
+    }
+    
+    #current-user-name {
+        font-size: var(--font-size-sm);
+    }
+    
+    #logout-btn {
+        padding: var(--space-1) var(--space-2);
+        font-size: var(--font-size-xs);
+    }
+    
+    /* Auth panel extra mobile */
+    .auth-panel button {
+        max-width: 150px;
+        font-size: var(--font-size-sm);
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    /* Modal mobile */
+    .auth-modal-content,
+    .delete-modal-content {
+        max-width: 95vw;
+        padding: var(--space-4);
+    }
+    
+    .auth-modal-title,
+    .delete-modal-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .auth-input {
+        font-size: var(--font-size-sm);
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    .auth-btn {
+        font-size: var(--font-size-sm);
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    /* Calendar mobile */
+    .calendar-dropdown {
+        width: 95vw;
+        max-width: 360px;
+        max-height: 80vh;
+    }
+    
+    .calendar-modal-overlay {
+        padding: var(--space-3);
+    }
+    
+    .calendar-day {
+        min-height: 40px;
+        font-size: var(--font-size-xs);
+    }
+    
+    .calendar-weekday {
+        font-size: 10px;
+        padding: var(--space-1);
+    }
+    
+    .calendar-header {
+        padding: var(--space-4);
+    }
+    
+    .calendar-month-year {
+        font-size: var(--font-size-base);
+        padding: var(--space-1) var(--space-3);
+    }
+    
+    .calendar-nav {
+        width: 40px;
+        height: 40px;
+        font-size: var(--font-size-base);
+    }
+    
+    /* Toast mobile */
+    .toast {
+        font-size: var(--font-size-xs);
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    .toast-message {
+        font-size: var(--font-size-xs);
+    }
 }
 
 /* Loading States */
 .loading {
     opacity: 0.6;
     pointer-events: none;
+}
+
+/* Mobile landscape improvements */
+@media (max-width: 768px) and (orientation: landscape) {
+    .header {
+        padding: var(--space-3) var(--space-4);
+        margin-bottom: var(--space-3);
+    }
+    
+    .header h1 {
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--space-1);
+    }
+    
+    .header p {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--space-2);
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-2);
+        margin-bottom: var(--space-3);
+    }
+    
+    .stat-card {
+        padding: var(--space-2);
+    }
+    
+    .stat-card i {
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--space-1);
+    }
+    
+    .stat-card h3 {
+        font-size: var(--font-size-xs);
+        margin-bottom: var(--space-1);
+    }
+    
+    .stat-card p {
+        font-size: var(--font-size-sm);
+    }
+    
+    .form-container, .shifts-container, .monthly-reports, .summary-container {
+        padding: var(--space-3);
+        margin-bottom: var(--space-3);
+    }
+    
+    .form-container h2, .shifts-container h2, .monthly-reports h2, .summary-container h2 {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--space-2);
+    }
+    
+    .unified-time-card {
+        flex-direction: row;
+        gap: var(--space-2);
+        padding: var(--space-2);
+    }
+    
+    .unified-time-input-group {
+        flex: 1;
+    }
+    
+    .unified-time-input, .unified-date-input {
+        font-size: var(--font-size-xs);
+        padding: var(--space-1);
+    }
+    
+    .btn-primary {
+        font-size: var(--font-size-xs);
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    .shift-details {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-2);
+    }
+    
+    .shift-detail {
+        padding: var(--space-1);
+    }
+    
+    .shift-detail .label {
+        font-size: 10px;
+    }
+    
+    .shift-detail .value {
+        font-size: var(--font-size-xs);
+    }
+    
+    .month-details {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-2);
+    }
+    
+    .month-detail {
+        padding: var(--space-1);
+    }
+    
+    .month-detail .label {
+        font-size: 10px;
+    }
+    
+    .month-detail .value {
+        font-size: var(--font-size-xs);
+    }
+    
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-2);
+    }
+    
+    .summary-item {
+        padding: var(--space-2);
+    }
+    
+    .summary-item .label {
+        font-size: 10px;
+    }
+    
+    .summary-item .value {
+        font-size: var(--font-size-xs);
+    }
+    
+    .summary-item.total {
+        grid-column: 1 / -1;
+        font-size: var(--font-size-sm);
+    }
+    
+    .filter-controls {
+        flex-direction: row;
+        gap: var(--space-2);
+    }
+    
+    .filter-controls select,
+    .filter-controls button {
+        flex: 1;
+        font-size: var(--font-size-xs);
+        padding: var(--space-1) var(--space-2);
+    }
+    
+    .user-panel {
+        flex-direction: row;
+        gap: var(--space-2);
+        padding: var(--space-2);
+        max-width: 300px;
+    }
+    
+    #current-user-name {
+        font-size: var(--font-size-xs);
+    }
+    
+    #logout-btn {
+        padding: var(--space-1) var(--space-2);
+        font-size: 10px;
+    }
+    
+    .auth-panel {
+        flex-direction: row;
+        gap: var(--space-2);
+    }
+    
+    .auth-panel button {
+        max-width: 120px;
+        font-size: var(--font-size-xs);
+        padding: var(--space-1) var(--space-2);
+    }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (max-width: 768px) {
+    /* Increase touch targets */
+    .btn-primary, .btn-danger, .btn-secondary {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .shift-delete {
+        min-height: 44px;
+    }
+    
+    .auth-btn {
+        min-height: 44px;
+    }
+    
+    /* Better spacing for touch */
+    .form-group {
+        margin-bottom: var(--space-4);
+    }
+    
+    .shift-item {
+        margin-bottom: var(--space-4);
+    }
+    
+    .month-item {
+        margin-bottom: var(--space-4);
+    }
+    
+    /* Improve input touch targets */
+    .unified-time-input,
+    .unified-date-input,
+    .auth-input {
+        min-height: 44px;
+    }
+    
+    /* Better modal positioning */
+    .modal-content {
+        margin: 20px;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
 }
 
 /* Animations */

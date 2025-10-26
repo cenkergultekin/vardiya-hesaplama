@@ -1,4 +1,5 @@
 Vardiya Hesaplama Sistemi:
+
 Part-time işim için vardiyalarımı, mesailerimi ve kazancımı kolayca takip etmemi sağlayan, kullanıcı dostu ve modern bir uygulama. Çalışma saatlerimi girerek otomatik hesaplamalar yapıyor, aylık özetimi anında görüyorum.
 
 Öne Çıkan Özellikler
@@ -9,16 +10,6 @@ Aylık Özet: Ay bazında filtreleme ve anlık istatistikler (çalışılan saat
 Veri Senkronizasyonu: Firebase Firestore ile güvenli bulut depolama ve LocalStorage ile çevrimdışı çalışma.
 Modern Tasarım: Responsive (mobil ve masaüstü uyumlu) arayüz, Glassmorphism efektleri, takvim widget'ı ve kullanıcı dostu bildirimler.
 Kullanıcı Kimlik Doğrulama: Güvenli giriş/kayıt sistemi (@vardiya.com uzantılı kullanıcı adları).
-
-
-Kurulum adımları:
-Bash
-
-git clone <repository-url>
-cd shift-up-hesaplama
-Tarayıcıda Aç: index.html dosyasını açarak uygulamayı kullanmaya başla.
-
-Firebase: Verilerini bulutta saklamak istersen, Firebase Console'dan proje oluşturup çıkan bilgileri script.js dosyasına yapıştır. Unutma: Başlangıç için Firestore güvenlik kurallarını test modunda açman gerekebilir.
 
 Teknik Detaylar
 

@@ -1,4 +1,4 @@
-Vardiya Hesaplama Sistemi
+Vardiya Hesaplama Sistemi:
 Part-time işim için vardiyalarımı, mesailerimi ve kazancımı kolayca takip etmemi sağlayan, kullanıcı dostu ve modern bir uygulama. Çalışma saatlerimi girerek otomatik hesaplamalar yapıyor, aylık özetimi anında görüyorum.
 
 Öne Çıkan Özellikler
